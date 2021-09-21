@@ -197,7 +197,7 @@ CUSTOM_VENDOR_MAKEFILE="${CUSTOM_VENDOR_BASEDIR}/vendor/config/main.mk"
 BROMITE_DIR="${ROOT_DIR}/bromite"
 
 CORE_CONFIG_REPO="https://github.com/RattlesnakeOS/core-config-repo.git"
-CUSTOM_CONFIG_REPO="https://github.com/CaseyBakey/example-custom-config-repo.git"
+CUSTOM_CONFIG_REPO="https://github.com/Bungeetaco/custom-config-repo.git"
 
 full_run() {
   log_header "${FUNCNAME[0]}"
@@ -742,7 +742,7 @@ build_chromium() {
       retry git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git "${MISC_DIR}/depot_tools"
     fi
     cd "${MISC_DIR}/depot_tools"
-    git pull origin master
+    git pull origin main
     export PATH="${PATH}:${MISC_DIR}/depot_tools"
 
     # fetch chromium
@@ -798,6 +798,7 @@ trichrome_library_package = "org.chromium.trichromelibrary"
 ${BROMITE_ARGS}
 EOF
     gn gen out/Default
+    gn check
 
     run_hook_if_exists "build_chromium_pre"
 
