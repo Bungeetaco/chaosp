@@ -798,7 +798,6 @@ trichrome_library_package = "org.chromium.trichromelibrary"
 ${BROMITE_ARGS}
 EOF
     gn gen out/Default
-    gn check
 
     run_hook_if_exists "build_chromium_pre"
 
