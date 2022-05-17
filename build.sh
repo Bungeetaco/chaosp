@@ -275,7 +275,7 @@ mimick_google_builds(){
   BUILD_NUMBER=$(cat default.prop | grep -i ro.build.version.incremental | cut -d "=" -f 2)
   BUILD_HOSTNAME=$(cat default.prop | grep -i ro.build.host | cut -d "=" -f 2)
 
-  printf "Values exported:\n BUILD_DATETIME=$BUILD_DATETIME\n BUILD_USERNAME=$BUILD_USERNAME\n BUILD_NUMBER=$BUILD_NUMBER\n BUILD_HOSTNAME=$BUILD_HOSTNAME"
+  printf "Values exported:\n BUILD_DATETIME=$BUILD_DATETIME\n BUILD_USERNAME=$BUILD_USERNAME\n BUILD_NUMBER=$BUILD_NUMBER\n BUILD_HOSTNAME=$BUILD_HOSTNAME\n"
 
   export BUILD_DATETIME
   export BUILD_USERNAME
@@ -749,7 +749,7 @@ build_chromium() {
     CHROMIUM_BUILD_DIR="${ROOT_DIR}/chromium"
     mkdir -p "${CHROMIUM_BUILD_DIR}"
     cd "${CHROMIUM_BUILD_DIR}"
-    fetch --nohooks android || gclient sync -D --with_branch_heads --with_tags --jobs 32 -RDf && cd src && git fetch && cd -
+    fetch --nohooks android || gclient sync -D --with_branch_heads --with_tags --jobs 32 -RDf --nohooks && cd src && git fetch && cd -
     cd src
 
     # checkout specific revision
@@ -805,7 +805,7 @@ EOF
     autoninja -C out/Default/ trichrome_webview_64_32_apk trichrome_chrome_64_32_apk trichrome_library_64_32_apk
 
     log "Signing trichrome"
-    APKSIGNER="${CHROMIUM_BUILD_DIR}/src/third_party/android_sdk/public/build-tools/30.0.1/apksigner"
+    APKSIGNER="${CHROMIUM_BUILD_DIR}/src/third_party/android_sdk/public/build-tools/31.0.0/apksigner"
     cd out/Default/apks
     rm -rf release
     mkdir release
